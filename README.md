@@ -26,8 +26,21 @@
 ```
     > ./naive-denovo.sh -d <dimension> -f <fastq_file>
 ```
+and the output file will be generated with the name ```results```
+
+- or specify the output file by flag ```-o <filename>``` example
+```
+    > ./naive-denovo.sh -d 64 -f read.fastq -o output.txt
+```
 
 - or to view the help message
 ```
     > ./naive-denovo.sh --help
 ```
+
+## usage
+
+- input file must be fastq file
+
+- output format will be multiple lines, 
+each line represensts each connected components
