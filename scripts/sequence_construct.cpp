@@ -20,7 +20,7 @@ int main(int argc, char **argv) {
     double duration;
 
     //start timer
-    cerr << "started !!!!" << endl;
+    // cerr << "started !!!!" << endl;
     start = clock();
 
     // start working
@@ -38,11 +38,11 @@ int main(int argc, char **argv) {
         pll_map[{left, right}] = read[0];
         line_count++;
         if (line_count % 1000000 == 0) {
-            cerr << "@line: " << line_count << '\n';
+            cerr << "RECONSTRUCTING SEQUENCE: @line: " << line_count << '\n';
         }
     }
     duration = (clock() - start) / (double) CLOCKS_PER_SEC;
-    cerr << "generated mapping @ " << duration << "s\n";
+    cerr << "RECONTRUCTING SEQUENCE: generated mapping @ " << duration << "s\n";
 
     char c;
     left = right = 0;
@@ -56,10 +56,11 @@ int main(int argc, char **argv) {
 
             component_count++;
             if (component_count % 10000 == 0) {
-                cerr << "component count: " << component_count << endl;
+                cerr << "RECONSTRUCTING SEQUENCE: current component count: " << component_count << endl;
             }
 
             read = pll_map[{left, right}];
+            cout << '\n';
             // cout << read.substr(1, read.size() - 1) << ' ';
             left = right;
             right = next;
@@ -75,9 +76,11 @@ int main(int argc, char **argv) {
         cout << read.substr(1, read.size() - 1);
     }
 
+    cerr << "RECONSTRUCTING SEQUENCE: total components count = " << component_count << endl;
+
     // stop timer
     duration = (clock() - start) / (double) CLOCKS_PER_SEC;
-    cerr << "total time: " << duration << "s\n";
+    cerr << "RECONSTRUCTING SEQEUNCE: total time: " << duration << "s\n";
 
     return 0;
 }

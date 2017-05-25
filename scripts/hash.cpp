@@ -16,10 +16,14 @@ int main(int argc, char** argv) {
     int read_len = 0;
     if (argc == 3) {
         string flag = argv[1];
+        if (flag != "-d") {
+            cerr << "invalid arguments: " << flag << endl;
+            return 1;
+        }
         string len_str = argv[2];
         use_flag = true;
         read_len = stoi(len_str);
-        cerr << "arguments: " << flag << ' ' << read_len << endl;
+        // cerr << "arguments: " << flag << ' ' << read_len << endl;
     } else if (argc != 1 && argc != 3) {
         cerr << "wrong usage" << endl;
         return 1;
@@ -40,18 +44,23 @@ int main(int argc, char** argv) {
         if (!use_flag) {
             cout << str_hash(line.substr(0, n-1)) << ' ' << str_hash(line.substr(1, n-1)) << ' ' << line << '\n';
         } else {
+            if (read_len > line.size()) {
+                cerr << "error: dimension is larger than reads" << endl;
+                cerr << "aborting" << endl;
+                return 1;
+            }
             for (int i = 0; i < line.size() - read_len + 1; i++) {
                 cout << str_hash(line.substr(i, read_len - 1)) << ' ' << str_hash(line.substr(i + 1, read_len - 1)) << ' ' << line.substr(i, read_len) << '\n';
             }
         }
         if (line_count % 1000002 == 0) {
             duration = ( clock() - start ) / (double) CLOCKS_PER_SEC;
-            cerr << "current line: " << line_count << '\n';
-            cerr << "current time used: " << duration << "s" << endl;
+            cerr << "HASHING: current hashing read: " << (line_count >> 2) << '\n';
+            cerr << "HASHING: current time used: " << duration << "s" << endl;
         }
     }
 
     // stop timer
     duration = ( clock() - start ) / (double) CLOCKS_PER_SEC;
-    cerr << "total time used: " << duration << "s" << endl;
+    cerr << "HASHING: total time used: " << duration << "s" << endl;
 }

@@ -24,7 +24,7 @@ void Hierholzer(map<ull, vector<ull>> &adj, clock_t start) {
     vector<ull> circuit;
 
     double duration = (clock() - start) / (double) CLOCKS_PER_SEC;
-    cerr << "finished preparing for Hierholzer @" << duration << "s" << endl;
+    // cerr << "CONTRUCTING GRAPH: finished preparing for Hierholzer @" << duration << "s" << endl;
 
     for (auto it = adj.begin(); it != adj.end(); it++) {
         if (edge_count[it->first] == 0) 
@@ -72,18 +72,18 @@ int main() {
     int nodes = 0;
     ull left, right;
     string line;
-    while (cin >> left >> right) {
+    while (cin >> left >> right >> line) {
         adj[left].push_back(right);
     }
 
     duration = ( clock() - start ) / (double) CLOCKS_PER_SEC;
-    cerr << "finished creating graph @" << duration << "s" << endl;
+    cerr << "FINDING EULER TOUR: finished creating graph @" << duration << "s" << endl;
     
     // Hierholzer
     Hierholzer(adj, start);
     
     // stop timer
     duration = ( clock() - start ) / (double) CLOCKS_PER_SEC;
-    cerr << "total time used: " << duration << "s" << endl;
+    cerr << "FINDING EULER TOUR: total time used: " << duration << "s" << endl;
 
 }
